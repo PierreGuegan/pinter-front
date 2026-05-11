@@ -1,14 +1,18 @@
-<p>feed works!</p>
-<p>testestesteest</p>
-<div class="grid">
-  <div class="card" *ngFor="let img of displayedImages">
-    
-    <img [src]="img.url" alt="image" />
+<h1>TEST IMAGE</h1>
 
-    <div class="info">
-      <h4>{{ img.title }}</h4>
-      <p>{{ img.description }}</p>
-    </div>
+<div *ngIf="image; else loading">
 
-  </div>
+  <p>{{ image?.title || 'No title' }}</p>
+
+  <img
+    [src]="image?.url"
+    alt="image"
+    width="300"
+    style="border: 2px solid red;"
+  />
+
 </div>
+
+<ng-template #loading>
+  <p>Chargement...</p>
+</ng-template>
