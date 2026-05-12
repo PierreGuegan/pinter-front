@@ -6,11 +6,12 @@ import { ImageService } from '../../services/imagesService';
   standalone: true,
   selector: 'app-feed',
   templateUrl: './feed.html',
+  styleUrls: ['./feed.css'],
   imports: [CommonModule]
 })
 export class FeedComponent implements OnInit {
 
-  image: any = null;
+  images: any[] = [];
 
   constructor(
     private imageService: ImageService,
@@ -18,25 +19,17 @@ export class FeedComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log("COMPONENT LOADED");
+    console.log("FEED LOADED");
 
-    // TEST 1 : voir si API répond
     this.imageService.getImages().subscribe({
       next: (data) => {
         console.log("DATA =", data);
 
-        if (!data || data.length === 0) {
-          console.warn("NO DATA RECEIVED");
-          return;
-        }
+        this.images = [...(data || [])];
 
-        // force Angular update propre
-        this.image = data[0];
+        console.log("IMAGES =", this.images);
 
-        console.log("IMAGE =", this.image);
-
-        // 🔥 force refresh UI (important debug Angular)
-        this.cd.detectChanges();
+        this.cd.detectChanges(); // 🔥 force Angular refresh
       },
       error: (err) => {
         console.error("ERROR =", err);

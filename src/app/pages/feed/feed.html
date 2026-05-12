@@ -1,18 +1,15 @@
-<h1>TEST IMAGE</h1>
+<h1>FEED</h1>
 
-<div *ngIf="image; else loading">
+<div class="grid">
 
-  <p>{{ image?.title || 'No title' }}</p>
+  <div class="card" *ngFor="let img of images">
 
-  <img
-    [src]="image?.url"
-    alt="image"
-    width="300"
-    style="border: 2px solid red;"
-  />
+    <img [src]="img.url" alt="image" />
+
+    <div class="info">
+      <p>{{ img.title || 'No title' }}</p>
+    </div>
+
+  </div>
 
 </div>
-
-<ng-template #loading>
-  <p>Chargement...</p>
-</ng-template>
