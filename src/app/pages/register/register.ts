@@ -23,18 +23,27 @@ export class RegisterComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   register() {
-    this.auth.register({
-      username: this.username,
+
+  this.auth.register({
+    username: this.username,
+    email: this.email,
+    password: this.password
+  })
+  .subscribe(() => {
+
+    this.auth.login({
       email: this.email,
       password: this.password
-    }).subscribe({
-      next: (res: any) => {
-        this.auth.saveToken(res.token);
-        this.router.navigate(['/feed']);
-      },
-      error: () => {
-        alert('Register failed');
-      }
+    })
+    .subscribe((res: any) => {
+
+      this.auth.saveToken(res.token);
+
+      this.router.navigate(['/profile']);
+
     });
-  }
+
+  });
+
+}
 }
