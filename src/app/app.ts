@@ -14,10 +14,16 @@ export class App {
   constructor(private auth: AuthService, private router: Router) {}
 
   goProfile() {
-    if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/profile']);
-    } else {
-      this.router.navigate(['/login']);
-    }
+
+  const token = localStorage.getItem('token');
+
+  console.log("PROFILE CLICK - TOKEN =", token);
+
+  if (token) {
+    this.router.navigate(['/profile']);
+  } else {
+    this.router.navigate(['/login']);
   }
+
+}
 }
