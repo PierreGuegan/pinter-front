@@ -19,11 +19,12 @@ export class App {
 
   console.log("PROFILE CLICK - TOKEN =", token);
 
-  if (token) {
-    this.router.navigate(['/profile']);
-  } else {
-    this.router.navigate(['/login']);
+  if (!token) {
+    this.router.navigateByUrl('/login');
+    return;
   }
+
+  this.router.navigateByUrl('/profile');
 
 }
 }
