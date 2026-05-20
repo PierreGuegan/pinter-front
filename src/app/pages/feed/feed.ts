@@ -36,4 +36,8 @@ export class FeedComponent implements OnInit {
       }
     });
   }
+
+  onError(img: any) {
+  console.warn("IMAGE FAILED:", img);
+}
 }
