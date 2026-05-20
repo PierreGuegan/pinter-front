@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
+  imports: [CommonModule],
   template: `
     <div *ngIf="isLoggedIn(); else notLogged">
 
@@ -25,12 +27,12 @@ export class ProfileComponent {
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  // AJOUT : check auth simple
+  // check auth simple
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  // AJOUT : logout
+  //  logout
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
