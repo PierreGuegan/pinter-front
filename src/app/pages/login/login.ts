@@ -33,6 +33,7 @@ export class LoginComponent {
   login() {
     this.auth.login({ email: this.email, password: this.password })
       .subscribe((res: any) => {
+        console.log("LOGIN RESPONSE =", res);
         this.auth.saveToken(res.token);
         this.router.navigate(['/feed']);
       });
