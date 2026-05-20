@@ -1,8 +1,26 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home';
-import { FeedComponent } from './pages/feed/feed';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'feed', component: FeedComponent }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+  { path: 'home', component: HomeComponent },
+
+  {
+    path: 'search',
+    loadComponent: () =>
+      import('./pages/search/search').then(m => m.SearchComponent)
+  },
+
+  {
+    path: 'post',
+    loadComponent: () =>
+      import('./pages/post/post').then(m => m.PostComponent)
+  },
+
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./pages/profile/profile').then(m => m.ProfileComponent)
+  },
 ];
