@@ -1,18 +1,26 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   imports: [FormsModule],
   template: `
-    <div>
-      <input [(ngModel)]="email" placeholder="email">
-      <input [(ngModel)]="password" type="password" placeholder="password">
+    <h2>Login</h2>
 
-      <button (click)="login()">Login</button>
-    </div>
+    <input [(ngModel)]="email" placeholder="email">
+    <input [(ngModel)]="password" type="password" placeholder="password">
+
+    <button (click)="login()">Login</button>
+
+    <!-- AJOUT : navigation register -->
+    <p style="margin-top: 10px;">
+      Pas de compte ?
+      <a (click)="goToRegister()" style="cursor:pointer; color:blue;">
+        Créer un profil
+      </a>
+    </p>
   `
 })
 export class LoginComponent {
@@ -23,21 +31,13 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   login() {
-    this.auth.login({
-      email: this.email,
-      password: this.password
-    }).subscribe({
-      next: (res: any) => {
+    this.auth.login({ email: this.email, password: this.password })
+      .subscribe((res: any) => {
         this.auth.saveToken(res.token);
         this.router.navigate(['/feed']);
-      },
-      error: () => {
-        alert('Login failed');
-      }
-    });
+      });
   }
 
-  //chemin vers register
   goToRegister() {
     this.router.navigate(['/register']);
   }

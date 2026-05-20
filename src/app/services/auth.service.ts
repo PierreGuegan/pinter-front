@@ -32,4 +32,12 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
   }
+
+  getMe() {
+  return this.http.get('http://217.160.247.93/api/auth/me', {
+    headers: {
+      Authorization: `Bearer ${this.getToken()}`
+    }
+  });
+}
 }
