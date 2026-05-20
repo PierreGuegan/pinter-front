@@ -15,16 +15,11 @@ export class App {
 
   goProfile() {
 
-  const token = localStorage.getItem('token');
-
-  console.log("PROFILE CLICK - TOKEN =", token);
-
-  if (!token) {
+  if (this.auth.canAccessProfile()) {
+    this.router.navigateByUrl('/profile');
+  } else {
     this.router.navigateByUrl('/login');
-    return;
   }
-
-  this.router.navigateByUrl('/profile');
 
 }
 }

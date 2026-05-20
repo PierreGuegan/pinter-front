@@ -34,10 +34,17 @@ export class AuthService {
   }
 
   getMe() {
+  const token = this.getToken();
+
   return this.http.get('http://217.160.247.93/api/auth/me', {
     headers: {
-      Authorization: `Bearer ${this.getToken()}`
+      Authorization: `Bearer ${token}`
     }
   });
+}
+
+canAccessProfile(): boolean {
+  const token = localStorage.getItem('token');
+  return token !== null && token.length > 10;
 }
 }
