@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   standalone: true,
   imports: [FormsModule],
   template: `
-    <input [(ngModel)]="email" placeholder="email">
-    <input [(ngModel)]="password" type="password" placeholder="password">
+    <div>
+      <input [(ngModel)]="email" placeholder="email">
+      <input [(ngModel)]="password" type="password" placeholder="password">
+
+      <button (click)="login()">Login</button>
+    </div>
   `
 })
-
 export class LoginComponent {
 
   email = '';
@@ -20,10 +23,17 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   login() {
-    this.auth.login({ email: this.email, password: this.password })
-      .subscribe((res: any) => {
+    this.auth.login({
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: (res: any) => {
         this.auth.saveToken(res.token);
         this.router.navigate(['/feed']);
-      });
+      },
+      error: () => {
+        alert('Login failed');
+      }
+    });
   }
 }

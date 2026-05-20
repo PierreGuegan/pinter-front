@@ -10,5 +10,14 @@ export const routes: Routes = [
 
   { path: 'post', loadComponent: () => import('./pages/post/post').then(m => m.PostComponent) },
 
-  { path: 'profile', loadComponent: () => import('./pages/profile/profile').then(m => m.ProfileComponent) },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile').then(m => m.ProfileComponent)
+  },
+
+  // 🔥 AJOUT ICI
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login').then(m => m.LoginComponent)
+  }
 ];

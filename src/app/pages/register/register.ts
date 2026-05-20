@@ -7,23 +7,34 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   template: `
+    <input [(ngModel)]="username" placeholder="username">
     <input [(ngModel)]="email" placeholder="email">
     <input [(ngModel)]="password" type="password" placeholder="password">
+
+    <button (click)="register()">Register</button>
   `
 })
-
 export class RegisterComponent {
 
+  username = '';
   email = '';
   password = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
   register() {
-    this.auth.register({ email: this.email, password: this.password })
-      .subscribe((res: any) => {
+    this.auth.register({
+      username: this.username,
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: (res: any) => {
         this.auth.saveToken(res.token);
         this.router.navigate(['/feed']);
-      });
+      },
+      error: () => {
+        alert('Register failed');
+      }
+    });
   }
 }

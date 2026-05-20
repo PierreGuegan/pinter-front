@@ -1,34 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private api = 'http://217.160.247.93';
+  private baseUrl = '/api/auth';
 
   constructor(private http: HttpClient) {}
 
-  register(data: any) {
-    return this.http.post(`${this.api}/auth/register`, data);
+  login(data: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/login`, data);
   }
 
-  login(data: any) {
-    return this.http.post<{ token: string }>(`${this.api}/auth/login`, data);
+  register(data: { username: string; email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, data);
   }
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }
 
-  getToken() {
+  getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
   }
 
   logout() {
     localStorage.removeItem('token');
-  }
-
-  isLogged(): boolean {
-    return !!this.getToken();
   }
 }

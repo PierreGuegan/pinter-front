@@ -1,6 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { isLoggedIn } from "./auth";
 
 
 import { App } from './app/app';
@@ -12,3 +13,15 @@ bootstrapApplication(App, {
     provideHttpClient()
   ]
 }).catch(err => console.error(err));
+
+const profileBtn = document.getElementById("profileBtn");
+
+if (profileBtn) {
+  profileBtn.addEventListener("click", () => {
+    if (isLoggedIn()) {
+      window.location.href = "/profile.html";
+    } else {
+      window.location.href = "/auth.html";
+    }
+  });
+}
