@@ -1,26 +1,46 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   standalone: true,
   template: `
-    <h2>Profile</h2>
+    <div *ngIf="isLoggedIn(); else notLogged">
 
-    <p *ngIf="user">
-      Connecté : {{ user.email }}
-    </p>
+      <h2>Mon profil</h2>
+
+      <!-- AJOUT : bouton logout -->
+      <button (click)="logout()">Déconnexion</button>
+
+    </div>
+
+    <ng-template #notLogged>
+      <p>Vous n'êtes pas connecté</p>
+      <button (click)="goToLogin()">Login</button>
+      <button (click)="goToRegister()">Register</button>
+    </ng-template>
   `
 })
 export class ProfileComponent {
 
-  user: any;
+  constructor(private auth: AuthService, private router: Router) {}
 
-  constructor(private auth: AuthService) {}
+  // AJOUT : check auth simple
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 
-  ngOnInit() {
-    const token = this.auth.getToken();
-    if (token) {
-      this.user = { email: 'logged-user' }; // temporaire
-    }
+  // AJOUT : logout
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 }

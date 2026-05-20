@@ -36,4 +36,9 @@ export class LoginComponent {
       }
     });
   }
+
+  //chemin vers register
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
 }
