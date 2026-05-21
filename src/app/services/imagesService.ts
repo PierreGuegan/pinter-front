@@ -24,4 +24,6 @@ export class ImageService {
 
   return this.http.post(this.apiUrl, formData);
 }
+
+
 }
