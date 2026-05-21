@@ -9,7 +9,12 @@ export const routes: Routes = [
 
   { path: 'search', loadComponent: () => import('./pages/search/search').then(m => m.SearchComponent) },
 
-  { path: 'post', loadComponent: () => import('./pages/post/post').then(m => m.PostComponent) },
+  {
+  path: 'post',
+  loadComponent: () =>
+    import('./pages/post/post').then(m => m.PostComponent),
+  canActivate: [AuthGuard]
+},
 
   {
   path: 'profile',
