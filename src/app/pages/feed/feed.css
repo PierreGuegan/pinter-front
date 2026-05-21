@@ -21,16 +21,15 @@
 
 .card {
   break-inside: avoid;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 
   border-radius: 14px;
   overflow: hidden;
 
-  background: var(--card);
-  box-shadow: none; 
+  background: #17181c;
   cursor: pointer;
 
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
 .card:hover {
@@ -40,15 +39,12 @@
 .card img {
   width: 100%;
   display: block;
-  border-radius: 14px;
 }
 
 .info {
-  padding: 6px 8px;
-  font-size: 12px;
-  color: var(--muted);
-}
+  padding: 0px 6px;
+  font-size: 11px;
+  color: #b5b5b5;
 
-body {
-  background: #fafafa;
+  background: transparent;
 }

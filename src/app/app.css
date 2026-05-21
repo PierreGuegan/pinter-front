@@ -63,11 +63,6 @@ button.nav-item {
   cursor: pointer;
 }
 
-/* bouton post (accent visuel optionnel) */
-.nav-item.post {
-  color: #ffffff;
-}
-
 
 .profile {
   background: #111;
