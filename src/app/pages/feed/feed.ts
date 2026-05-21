@@ -66,4 +66,22 @@ deleteImage(id: string) {
   });
 }
 
+onDeleteImage(id: string) {
+
+  this.imageService.deleteImage(id).subscribe({
+    next: () => {
+
+      // retire du feed
+      this.images = this.images.filter(img => img.id !== id);
+
+      // ferme modal
+      this.closeModal();
+    },
+    error: (err) => {
+      console.error("Delete failed", err);
+    }
+  });
+
+}
+
 }
