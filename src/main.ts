@@ -14,7 +14,7 @@ bootstrapApplication(App, {
   ]
 }).catch(err => console.error(err));
 
-const profileBtn = document.getElementById("profileBtn");
+/*const profileBtn = document.getElementById("profileBtn");
 
 if (profileBtn) {
   profileBtn.addEventListener("click", () => {
@@ -24,4 +24,4 @@ if (profileBtn) {
       window.location.href = "/auth.html";
     }
   });
-}
+}*/

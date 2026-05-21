@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { FeedComponent } from './pages/feed/feed';
+import { AuthGuard } from './guard/authGuard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'feed', pathMatch: 'full' },
@@ -11,9 +12,11 @@ export const routes: Routes = [
   { path: 'post', loadComponent: () => import('./pages/post/post').then(m => m.PostComponent) },
 
   {
-    path: 'profile',
-    loadComponent: () => import('./pages/profile/profile').then(m => m.ProfileComponent)
-  },
+  path: 'profile',
+  loadComponent: () =>
+    import('./pages/profile/profile').then(m => m.ProfileComponent),
+  canActivate: [AuthGuard]
+},
 
   {
     path: 'login',
