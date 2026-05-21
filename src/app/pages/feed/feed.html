@@ -5,7 +5,7 @@
 
 <div class="grid">
 
-  <div class="card" *ngFor="let img of images">
+  <div class="card" *ngFor="let img of images" (click)="openModal(img)">
 
     <img
       [src]="img.url"
@@ -21,3 +21,9 @@
   </div>
 
 </div>
+
+<app-image-modal
+  *ngIf="isModalOpen"
+  [image]="selectedImage"
+  (close)="closeModal()">
+</app-image-modal>

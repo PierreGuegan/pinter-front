@@ -1,13 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageService } from '../../services/imagesService';
+import { ImageModalComponent } from '../../components/image-modal/image-modal';
 
 @Component({
   standalone: true,
   selector: 'app-feed',
   templateUrl: './feed.html',
   styleUrls: ['./feed.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, ImageModalComponent]
 })
 export class FeedComponent implements OnInit {
 
@@ -40,4 +41,18 @@ export class FeedComponent implements OnInit {
   onError(img: any) {
   console.warn("IMAGE FAILED:", img);
 }
+
+selectedImage: any = null;
+isModalOpen = false;
+
+openModal(img: any) {
+  this.selectedImage = img;
+  this.isModalOpen = true;
+}
+
+closeModal() {
+  this.isModalOpen = false;
+  this.selectedImage = null;
+}
+
 }
