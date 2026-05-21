@@ -1,1 +1,15 @@
-<p>search works!</p>
+<input
+  type="text"
+  [(ngModel)]="query"
+  (input)="onSearch()"
+  placeholder="Search images..."
+/>
+
+<div class="grid">
+  <div *ngFor="let img of images">
+    <img [src]="img.url" />
+    <h3>{{ img.title }}</h3>
+    <p>{{ img.description }}</p>
+    <small>{{ img.owner?.username }}</small>
+  </div>
+</div>

@@ -46,5 +46,9 @@ deleteImage(id: string) {
   });
 }
 
+searchImages(query: string) {
+  return this.http.get<any[]>(`${this.apiUrl}/search?q=${query}`);
+}
+
 
 }
