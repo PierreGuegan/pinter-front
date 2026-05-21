@@ -14,4 +14,14 @@ export class ImageService {
   getImages() {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  uploadImage(file: File, title: string, description: string) {
+  const formData = new FormData();
+
+  formData.append('file', file);
+  formData.append('title', title);
+  formData.append('description', description);
+
+  return this.http.post(this.apiUrl, formData);
+}
 }
