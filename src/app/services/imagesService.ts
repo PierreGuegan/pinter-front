@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 
@@ -16,13 +16,23 @@ export class ImageService {
   }
 
   uploadImage(file: File, title: string, description: string) {
+
   const formData = new FormData();
 
   formData.append('file', file);
   formData.append('title', title);
   formData.append('description', description);
 
-  return this.http.post(this.apiUrl, formData);
+  // RECUP JWT
+  const token = localStorage.getItem('token');
+
+  // HEADERS
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  // REQUEST
+  return this.http.post(this.apiUrl, formData, { headers });
 }
 
 
