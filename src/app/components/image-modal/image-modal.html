@@ -20,6 +20,31 @@
       {{ image?.owner?.username || 'Unknown' }}
     </p>
 
+    <div class="actions">
+
+      <button (click)="toggleLike()">
+        👍 Like
+      </button>
+
+      <span>{{ likesCount }} likes</span>
+
+    </div>
+
+    <div class="comments">
+
+      <h3>Comments</h3>
+
+      <div *ngFor="let c of comments">
+        <strong>{{ c.user?.username }}</strong>
+        <p>{{ c.content }}</p>
+      </div>
+
+      <input [(ngModel)]="newComment" placeholder="Add a comment..." />
+
+      <button (click)="addComment()">Send</button>
+
+    </div>
+
     <button class="delete-btn" (click)="deleteImage()">
       Delete
     </button>

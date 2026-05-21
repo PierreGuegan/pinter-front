@@ -51,4 +51,46 @@ searchImages(query: string) {
 }
 
 
+//LIKES
+toggleLike(imageId: string) {
+  const token = localStorage.getItem('token');
+
+  return this.http.post(
+    `${environment.apiUrl}/likes/${imageId}`,
+    {},
+    {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    }
+  );
+}
+
+getLikeCount(imageId: string) {
+  return this.http.get<number>(
+    `${environment.apiUrl}/likes/${imageId}`
+  );
+}
+
+//COMMENTS
+getComments(imageId: string) {
+  return this.http.get<any[]>(
+    `${environment.apiUrl}/comments/${imageId}`
+  );
+}
+
+addComment(imageId: string, content: string) {
+  const token = localStorage.getItem('token');
+
+  return this.http.post(
+    `${environment.apiUrl}/comments/${imageId}`,
+    content,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'text/plain'
+      }
+    }
+  );
+}
 }
