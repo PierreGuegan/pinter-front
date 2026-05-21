@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   standalone: true,
   selector: 'app-image-modal',
@@ -12,8 +13,13 @@ export class ImageModalComponent {
 
   @Input() image: any;
   @Output() close = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<string>();
 
   closeModal() {
     this.close.emit();
   }
+
+  deleteImage() {
+  this.delete.emit(this.image.id);
+}
 }

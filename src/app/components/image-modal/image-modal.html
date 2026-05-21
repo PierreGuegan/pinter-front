@@ -11,14 +11,18 @@
     <p>{{ image?.description }}</p>
 
     <p>
-  <strong>Original artist:</strong>
-  {{ image?.originalArtist || 'Unknown' }}
-</p>
+      <strong>Original artist:</strong>
+      {{ image?.originalArtist || 'Unknown' }}
+    </p>
 
     <p>
       <strong>Owner :</strong>
       {{ image?.owner?.username || 'Unknown' }}
     </p>
+
+    <button class="delete-btn" (click)="deleteImage()">
+      Delete
+    </button>
 
   </div>
 
