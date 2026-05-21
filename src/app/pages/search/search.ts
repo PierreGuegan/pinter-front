@@ -1,43 +1,19 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ImageService } from '../../services/imagesService';
-
-interface ImageDto {
-  id: string;
-  title: string;
-  description: string;
-  url: string;
-  originalArtist: string;
-  owner?: {
-    id: string;
-    username: string;
-  };
-}
 
 @Component({
   standalone: true,
   selector: 'app-search',
-  imports: [FormsModule],
-  template: `
-    <input
-      type="text"
-      [(ngModel)]="query"
-      (input)="onSearch()"
-      placeholder="Rechercher une image..."
-    />
-
-    <div *ngFor="let img of images">
-      <img [src]="img.url" width="200" />
-      <h3>{{ img.title }}</h3>
-      <p>{{ img.description }}</p>
-      <small>{{ img.owner?.username }}</small>
-    </div>
-  `
+  imports: [CommonModule, FormsModule],
+  templateUrl: './search.html',
+  styleUrls: ['./search.css']
 })
 export class SearchComponent {
 
   query = '';
-  images: ImageDto[] = [];
+  images: any[] = [];
 
   constructor(private imageService: ImageService) {}
 
@@ -49,8 +25,13 @@ export class SearchComponent {
     }
 
     this.imageService.searchImages(this.query)
-      .subscribe((res: ImageDto[]) => {
-        this.images = res;
+      .subscribe({
+        next: (res) => {
+          this.images = res;
+        },
+        error: (err) => {
+          console.error(err);
+        }
       });
   }
 }

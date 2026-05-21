@@ -1,15 +1,25 @@
-<input
-  type="text"
-  [(ngModel)]="query"
-  (input)="onSearch()"
-  placeholder="Search images..."
-/>
+<div class="search-container">
+
+  <input
+    class="search-input"
+    type="text"
+    [(ngModel)]="query"
+    (input)="onSearch()"
+    placeholder="Rechercher une image, un artiste..."
+  />
+
+</div>
 
 <div class="grid">
-  <div *ngFor="let img of images">
+
+  <div class="card" *ngFor="let img of images">
+
     <img [src]="img.url" />
-    <h3>{{ img.title }}</h3>
-    <p>{{ img.description }}</p>
-    <small>{{ img.owner?.username }}</small>
+
+    <div class="info">
+      {{ img.title }}
+    </div>
+
   </div>
+
 </div>
