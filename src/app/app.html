@@ -1,11 +1,35 @@
 <nav class="navbar">
 
-  <a routerLink="/feed" class="nav-item">Home</a>
-  <a routerLink="/search" class="nav-item">Search</a>
-  <a routerLink="/post" class="nav-item">Post</a>
+  <a routerLink="/feed" class="nav-item">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M3 10L12 3l9 7v10a2 2 0 0 1-2 2h-5v-6H10v6H5a2 2 0 0 1-2-2V10z"
+        fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <span>Home</span>
+  </a>
 
-  <button type="button" class="nav-item profile" (click)="goProfile()">
-    Profile
+  <a routerLink="/search" class="nav-item">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"
+        fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <span>Search</span>
+  </a>
+
+  <a routerLink="/post" class="nav-item post">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M12 5v14M5 12h14"
+        fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <span>Post</span>
+  </a>
+
+  <button type="button" class="nav-item" (click)="goProfile()">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4 0-7 2-7 5v1h14v-1c0-3-3-5-7-5z"
+        fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <span>Profile</span>
   </button>
 
 </nav>

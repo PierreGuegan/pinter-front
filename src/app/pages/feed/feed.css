@@ -1,7 +1,8 @@
 .grid {
-  column-count: 2; /* mobile-first */
+  column-count: 2;
   column-gap: 12px;
   padding: 12px;
+  padding-bottom: 80px;
 }
 
 /* tablette */
@@ -21,12 +22,15 @@
 .card {
   break-inside: avoid;
   margin-bottom: 12px;
-  border-radius: 16px;
+
+  border-radius: 14px;
   overflow: hidden;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  background: var(--card);
+  box-shadow: none; 
   cursor: pointer;
-  transition: transform 0.2s ease;
+
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 .card:hover {
@@ -35,13 +39,14 @@
 
 .card img {
   width: 100%;
-  height: auto;
   display: block;
+  border-radius: 14px;
 }
 
 .info {
-  padding: 8px 10px;
-  font-size: 14px;
+  padding: 6px 8px;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 body {

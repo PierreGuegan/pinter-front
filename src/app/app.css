@@ -1,42 +1,71 @@
+:root {
+  --bg: #0f0f10;
+  --card: #17181c;
+  --text: #eaeaea;
+  --muted: #a0a0a0;
+}
+
 .navbar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
 
-  height: 60px;
+  height: 64px;
 
   display: flex;
   justify-content: space-around;
   align-items: center;
 
-  background: #ffffff;
-  border-top: 1px solid #eee;
+  background: #141416;
+  border-top: 1px solid #222;
 
   z-index: 1000;
 }
 
 .nav-item {
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+
+  text-decoration: none;
+  color: #a0a0a0;
+
+  font-size: 11px;
 
   padding: 6px 10px;
   border-radius: 12px;
 
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .nav-item:hover {
-  background: #f2f2f2;
+  color: #ffffff;
+  background: #1c1c1f;
 }
 
 .nav-item:active {
   transform: scale(0.95);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* bouton profile */
+button.nav-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* bouton post (accent visuel optionnel) */
+.nav-item.post {
+  color: #ffffff;
 }
 
 
@@ -50,3 +79,10 @@
 .grid {
   padding-bottom: 80px;
 }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+
