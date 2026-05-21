@@ -23,8 +23,10 @@
     <div class="actions">
 
       <button (click)="toggleLike()">
-        👍 Like
+        {{ isLiked ? '💔 Unlike' : '👍 Like' }}
       </button>
+
+      <span>{{ likesCount }} likes</span>
 
       <span>{{ likesCount }} likes</span>
 

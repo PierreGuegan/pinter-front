@@ -31,11 +31,12 @@ export class ImageModalComponent {
   isLiked: boolean = false;
 
   ngOnChanges() {
-    if (this.image?.id) {
-      this.loadLikes();
-      this.loadComments();
-    }
+  if (this.image?.id) {
+    this.loadLikes();
+    this.loadComments();
+    this.loadLikeState(); 
   }
+}
 
   constructor(private imageService: ImageService) {}
 
@@ -45,9 +46,20 @@ export class ImageModalComponent {
   });
 }
 
+loadLikeState() {
+  this.imageService.isLikedByMe(this.image.id).subscribe({
+    next: (res: boolean) => {
+      this.isLiked = res;
+    }
+  });
+}
+
 toggleLike() {
   this.imageService.toggleLike(this.image.id).subscribe({
-    next: () => this.loadLikes()
+    next: () => {
+      this.isLiked = !this.isLiked;
+      this.loadLikes();
+    }
   });
 }
 
