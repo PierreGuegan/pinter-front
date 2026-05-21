@@ -26,8 +26,9 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
-  }
+  console.log("TOKEN CHECK =", localStorage.getItem('token'));
+  return !!localStorage.getItem('token');
+}
 
   logout() {
     localStorage.removeItem('token');

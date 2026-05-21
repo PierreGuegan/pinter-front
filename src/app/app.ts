@@ -14,15 +14,6 @@ export class App {
   constructor(private auth: AuthService, private router: Router) {}
 
   goProfile() {
-  const token = this.auth.getToken();
-
-  console.log("PROFILE CLICK - TOKEN =", token);
-
-  if (!token) {
-    this.router.navigate(['/login']);
-    return;
-  }
-
   this.router.navigate(['/profile']);
 }
 }
