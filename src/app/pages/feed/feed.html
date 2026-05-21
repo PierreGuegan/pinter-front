@@ -4,23 +4,23 @@
 
   <div class="card" *ngFor="let img of images" (click)="openModal(img)">
 
-    <img
-      [src]="img.url"
-      alt="image"
-      loading="lazy"
-      (error)="onError(img)"
-    />
+    <img [src]="img.url" alt="image" loading="lazy" (error)="onError(img)" />
 
     <div class="info">
-      <p>{{ img.title || 'No title' }}</p>
+
+      <p class="title">
+        {{ img.title || 'No title' }}
+      </p>
+
+      <p class="author">
+        Posted by {{ img.owner?.username || 'Unknown' }}
+      </p>
+
     </div>
 
   </div>
 
 </div>
 
-<app-image-modal
-  *ngIf="isModalOpen"
-  [image]="selectedImage"
-  (close)="closeModal()">
+<app-image-modal *ngIf="isModalOpen" [image]="selectedImage" (close)="closeModal()">
 </app-image-modal>
