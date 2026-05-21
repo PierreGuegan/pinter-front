@@ -1,10 +1,12 @@
 <nav class="navbar">
 
-  <a routerLink="/feed">Home</a>
-  <a routerLink="/search">Search</a>
-  <a routerLink="/post">Post</a>
+  <a routerLink="/feed" class="nav-item">Home</a>
+  <a routerLink="/search" class="nav-item">Search</a>
+  <a routerLink="/post" class="nav-item">Post</a>
 
-  <button type="button" (click)="goProfile()">Profile</button>
+  <button type="button" class="nav-item profile" (click)="goProfile()">
+    Profile
+  </button>
 
 </nav>
 
