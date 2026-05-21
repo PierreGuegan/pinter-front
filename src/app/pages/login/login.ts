@@ -5,23 +5,43 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
+  styleUrls: ['../../auth.css'],
   imports: [FormsModule],
   template: `
+<div class="auth-page">
+
+  <div class="auth-card">
+
     <h2>Login</h2>
 
-    <input [(ngModel)]="email" placeholder="email">
-    <input [(ngModel)]="password" type="password" placeholder="password">
+    <input
+      [(ngModel)]="email"
+      placeholder="Email"
+      class="auth-input"
+    />
 
-    <button (click)="login()">Login</button>
+    <input
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Password"
+      class="auth-input"
+    />
 
-    <!-- AJOUT : navigation register -->
-    <p style="margin-top: 10px;">
-      Pas de compte ?
-      <a (click)="goToRegister()" style="cursor:pointer; color:blue;">
-        Créer un profil
+    <button class="auth-button" (click)="login()">
+      Login
+    </button>
+
+    <p class="auth-link">
+      No account ?
+      <a (click)="goToRegister()">
+        Create one
       </a>
     </p>
-  `
+
+  </div>
+
+</div>
+`
 })
 export class LoginComponent {
 

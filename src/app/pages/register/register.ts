@@ -6,13 +6,48 @@ import { FormsModule } from '@angular/forms';
 @Component({
   standalone: true,
   imports: [FormsModule],
+  styleUrls: ['../../auth.css'],
   template: `
-    <input [(ngModel)]="username" placeholder="username">
-    <input [(ngModel)]="email" placeholder="email">
-    <input [(ngModel)]="password" type="password" placeholder="password">
+<div class="auth-page">
 
-    <button (click)="register()">Register</button>
-  `
+  <div class="auth-card">
+
+    <h2>Create account</h2>
+
+    <input
+      [(ngModel)]="username"
+      placeholder="Username"
+      class="auth-input"
+    />
+
+    <input
+      [(ngModel)]="email"
+      placeholder="Email"
+      class="auth-input"
+    />
+
+    <input
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Password"
+      class="auth-input"
+    />
+
+    <button class="auth-button" (click)="register()">
+      Register
+    </button>
+
+    <p class="auth-link">
+      Already have an account ?
+      <a (click)="goToLogin()">
+        Login
+      </a>
+    </p>
+
+  </div>
+
+</div>
+`
 })
 export class RegisterComponent {
 
@@ -45,5 +80,9 @@ export class RegisterComponent {
 
   });
 
+}
+
+goToLogin() {
+  this.router.navigate(['/login']);
 }
 }

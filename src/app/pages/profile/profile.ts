@@ -6,28 +6,54 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   standalone: true,
   imports: [CommonModule],
+  styleUrls: ['../../auth.css'],
   template: `
-    <div *ngIf="user; else notLogged">
+<div class="auth-page">
 
-      <h2>Mon profil</h2>
+  <div class="auth-card" *ngIf="user; else notLogged">
 
-      <!-- AJOUT : infos user -->
-      <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
+    <h2>Profile</h2>
 
-      <button (click)="logout()">Déconnexion</button>
+    <div class="profile-info">
+      <span>Username</span>
+      <p>{{ user.username }}</p>
+    </div>
+
+    <div class="profile-info">
+      <span>Email</span>
+      <p>{{ user.email }}</p>
+    </div>
+
+    <button class="auth-button" (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+
+  <ng-template #notLogged>
+
+    <div class="auth-card">
+
+      <h2>Profile</h2>
+
+      <p class="auth-link">
+        You are not connected
+      </p>
+
+      <button class="auth-button" (click)="goToLogin()">
+        Login
+      </button>
+
+      <button class="auth-button" (click)="goToRegister()">
+        Register
+      </button>
 
     </div>
 
-    <ng-template #notLogged>
-      <h2>Profil</h2>
+  </ng-template>
 
-      <p>Vous n'êtes pas connecté</p>
-
-      <button (click)="goToLogin()">Login</button>
-      <button (click)="goToRegister()">Register</button>
-    </ng-template>
-  `
+</div>
+`
 })
 export class ProfileComponent {
 
