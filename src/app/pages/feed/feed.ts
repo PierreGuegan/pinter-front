@@ -55,4 +55,15 @@ closeModal() {
   this.selectedImage = null;
 }
 
+deleteImage(id: string) {
+  this.imageService.deleteImage(id).subscribe({
+    next: () => {
+      this.images = this.images.filter(i => i.id !== id);
+    },
+    error: (err) => {
+      console.error("Delete failed", err);
+    }
+  });
+}
+
 }

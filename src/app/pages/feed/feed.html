@@ -16,6 +16,10 @@
         Posted by {{ img.owner?.username || 'Unknown' }}
       </p>
 
+      <button (click)="deleteImage(img.id)">
+        Delete
+      </button>
+
     </div>
 
   </div>

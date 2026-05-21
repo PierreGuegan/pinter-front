@@ -35,5 +35,15 @@ export class ImageService {
   return this.http.post(this.apiUrl, formData, { headers });
 }
 
+deleteImage(id: string) {
+  const token = localStorage.getItem('token');
+
+  return this.http.delete(`${this.apiUrl}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+}
+
 
 }
