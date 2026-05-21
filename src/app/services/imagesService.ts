@@ -15,13 +15,14 @@ export class ImageService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  uploadImage(file: File, title: string, description: string) {
+  uploadImage(file: File, title: string, description: string, originalArtist: string) {
 
   const formData = new FormData();
 
   formData.append('file', file);
   formData.append('title', title);
   formData.append('description', description);
+  formData.append('originalArtist', originalArtist);
 
   // RECUP JWT
   const token = localStorage.getItem('token');

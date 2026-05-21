@@ -11,6 +11,11 @@
     <p>{{ image?.description }}</p>
 
     <p>
+  <strong>Original artist:</strong>
+  {{ image?.originalArtist || 'Unknown' }}
+</p>
+
+    <p>
       <strong>Owner :</strong>
       {{ image?.owner?.username || 'Unknown' }}
     </p>

@@ -61,6 +61,11 @@ import { CommonModule } from '@angular/common';
       class="textarea"
     ></textarea>
 
+    <input
+  [(ngModel)]="originalArtist"
+  placeholder="Original artist"
+/>
+
     <!-- BUTTON -->
     <button class="post-button" (click)="upload()">
       Publish
@@ -81,25 +86,26 @@ export class PostComponent {
   title = '';
   description = '';
   message = '';
+  originalArtist = '';
 
-  constructor(private imageService: ImageService) {}
+  constructor(private imageService: ImageService) { }
 
   previewUrl: string | ArrayBuffer | null = null;
 
   onFileSelected(event: any) {
 
-  this.file = event.target.files[0];
+    this.file = event.target.files[0];
 
-  if (!this.file) return;
+    if (!this.file) return;
 
-  const reader = new FileReader();
+    const reader = new FileReader();
 
-  reader.onload = () => {
-    this.previewUrl = reader.result;
-  };
+    reader.onload = () => {
+      this.previewUrl = reader.result;
+    };
 
-  reader.readAsDataURL(this.file);
-}
+    reader.readAsDataURL(this.file);
+  }
 
   upload() {
     if (!this.file) {
@@ -110,7 +116,8 @@ export class PostComponent {
     this.imageService.uploadImage(
       this.file,
       this.title,
-      this.description
+      this.description,
+      this.originalArtist
     ).subscribe({
       next: () => {
         this.message = "Upload success";
