@@ -47,19 +47,6 @@
   background: #1c1c1f;
 }
 
-.nav-item:active {
-  transform: scale(0.95);
-  color: #c4b5fd !important;
-}
-
-.navbar a.router-link-active {
-  color: #c4b5fd;
-}
-
-.navbar .nav-item.router-link-active {
-  color: #c4b5fd;
-}
-
 
 .icon {
   width: 22px;
@@ -90,4 +77,12 @@ body {
   color: var(--text);
 }
 
+.nav-item:active {
+  transform: scale(0.95);
+}
+
+.nav-item.active {
+  color: #c4b5fd;
+  background: rgba(196, 181, 253, 0.08);
+}
 
