@@ -59,23 +59,23 @@ export class ProfileComponent {
 
   user: any = null;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
 
-  const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+      return;
+    }
 
-  if (!token) {
-    this.router.navigate(['/login']);
-    return;
+    setTimeout(() => {
+      this.auth.getMe().subscribe({
+        next: (res) => this.user = res,
+        error: () => this.router.navigate(['/login'])
+      });
+    }, 0);
   }
-
-  this.auth.getMe().subscribe({
-    next: (res) => this.user = res,
-    error: () => this.router.navigate(['/login'])
-  });
-
-}
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
