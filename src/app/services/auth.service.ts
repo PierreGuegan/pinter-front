@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private baseUrl = '/api/auth';
+  private baseUrl = `${environment.apiUrl}/api/auth`;
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +38,7 @@ export class AuthService {
   getMe() {
   const token = this.getToken();
 
-  return this.http.get('http://217.160.247.93/api/auth/me', {
+  return this.http.get(`${this.baseUrl}/me`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
