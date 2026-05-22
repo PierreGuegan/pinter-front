@@ -49,11 +49,15 @@
 
 .nav-item:active {
   transform: scale(0.95);
-    color: #c4b5fd !important;
+  color: #c4b5fd !important;
 }
 
-.nav-item.active {
+.navbar a.router-link-active {
+  color: #c4b5fd;
+}
 
+.navbar .nav-item.router-link-active {
+  color: #c4b5fd;
 }
 
 
