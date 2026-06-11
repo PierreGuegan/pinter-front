@@ -46,8 +46,13 @@ selectedImage: any = null;
 isModalOpen = false;
 
 openModal(img: any) {
-  this.selectedImage = img;
-  this.isModalOpen = true;
+  this.selectedImage = null;
+
+  // 🔥 force re-instantiation Angular propre
+  setTimeout(() => {
+    this.selectedImage = structuredClone(img);
+    this.isModalOpen = true;
+  });
 }
 
 closeModal() {
