@@ -36,6 +36,7 @@ export class ImageModalComponent {
 
 ngOnInit() {
   this.reload();
+    console.log("MODAL CREATED");
 }
 
   constructor(private imageService: ImageService) {}
