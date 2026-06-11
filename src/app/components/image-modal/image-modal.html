@@ -1,50 +1,52 @@
 <div class="overlay" (click)="closeModal()">
-  
-</div><div class="modal" (click)="$event.stopPropagation()">
 
-  <button class="close" (click)="closeModal()">✕</button>
+  <div class="modal" (click)="$event.stopPropagation()">
 
-  <img *ngIf="image" [src]="image?.url || image?.path" />
+    <button class="close" (click)="closeModal()">✕</button>
 
-  <div class="content">
+    <img *ngIf="image" [src]="image?.url || image?.path" />
 
-    <h2>{{ image?.title }}</h2>
+    <div class="content">
 
-    <p>{{ image?.description }}</p>
+      <h2>{{ image?.title }}</h2>
 
-    <p>
-      <strong>Original artist:</strong>
-      {{ image?.originalArtist || 'Unknown' }}
-    </p>
+      <p>{{ image?.description }}</p>
 
-    <p>
-      <strong>Owner :</strong>
-      {{ image?.owner?.username || 'Unknown' }}
-    </p>
+      <p>
+        <strong>Original artist:</strong>
+        {{ image?.originalArtist || 'Unknown' }}
+      </p>
 
-    <div class="actions">
-      <button (click)="toggleLike()">
-        {{ isLiked ? '💔 Unlike' : '👍 Like' }}
-      </button>
-      <span>{{ likesCount }} likes</span>
-    </div>
+      <p>
+        <strong>Owner :</strong>
+        {{ image?.owner?.username || 'Unknown' }}
+      </p>
 
-    <div class="comments">
-      <h3>Comments</h3>
-
-      <div *ngFor="let c of comments">
-        <strong>{{ c.user?.username }}</strong>
-        <p>{{ c.content }}</p>
+      <div class="actions">
+        <button (click)="toggleLike()">
+          {{ isLiked ? '💔 Unlike' : '👍 Like' }}
+        </button>
+        <span>{{ likesCount }} likes</span>
       </div>
 
-      <input [(ngModel)]="newComment" placeholder="Add a comment..." />
+      <div class="comments">
+        <h3>Comments</h3>
 
-      <button (click)="addComment()">Send</button>
+        <div *ngFor="let c of comments">
+          <strong>{{ c.user?.username }}</strong>
+          <p>{{ c.content }}</p>
+        </div>
+
+        <input [(ngModel)]="newComment" placeholder="Add a comment..." />
+
+        <button (click)="addComment()">Send</button>
+      </div>
+
+      <button class="delete-btn" (click)="deleteImage()">
+        Delete
+      </button>
+
     </div>
-
-    <button class="delete-btn" (click)="deleteImage()">
-      Delete
-    </button>
 
   </div>
 

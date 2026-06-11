@@ -44,11 +44,9 @@
 }
 
 /* ZONE SCROLLABLE */
-.modal-content {
+.content {
   overflow-y: auto;
   flex: 1;
-
-  padding-bottom: 10px;
 }
 
 /* OPTION : scrollbar propre */
