@@ -1,10 +1,10 @@
-<div class="overlay" (click)="closeModal()">
+<div class="modal" (click)="$event.stopPropagation()">
 
-  <div class="modal" (click)="$event.stopPropagation()">
+  <button class="close" (click)="closeModal()">✕</button>
 
-    <button class="close" (click)="closeModal()">✕</button>
+  <img *ngIf="image" [src]="image?.url || image?.path" />
 
-    <img *ngIf="image" [src]="image?.url || image?.path" />
+  <div class="modal-scroll">
 
     <h2>{{ image?.title }}</h2>
 
@@ -21,17 +21,13 @@
     </p>
 
     <div class="actions">
-
       <button (click)="toggleLike()">
         {{ isLiked ? '💔 Unlike' : '👍 Like' }}
       </button>
-
       <span>{{ likesCount }} likes</span>
-
     </div>
 
     <div class="comments">
-
       <h3>Comments</h3>
 
       <div *ngFor="let c of comments">
@@ -42,7 +38,6 @@
       <input [(ngModel)]="newComment" placeholder="Add a comment..." />
 
       <button (click)="addComment()">Send</button>
-
     </div>
 
     <button class="delete-btn" (click)="deleteImage()">
