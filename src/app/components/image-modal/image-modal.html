@@ -4,7 +4,7 @@
 
     <button class="close" (click)="closeModal()">✕</button>
 
-    <img [src]="image?.url || image?.path" />
+    <img *ngIf="image" [src]="image?.url || image?.path" />
 
     <h2>{{ image?.title }}</h2>
 

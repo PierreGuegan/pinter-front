@@ -30,9 +30,6 @@ export class ImageModalComponent {
   newComment: string = '';
   isLiked: boolean = false;
 
-  ngOnChanges() {
-  this.reload();
-}
 
 ngOnInit() {
   this.reload();
@@ -42,6 +39,8 @@ ngOnInit() {
   constructor(private imageService: ImageService) {}
 
   loadLikes() {
+  if (!this.image?.id) return;
+
   this.imageService.getLikeCount(this.image.id).subscribe({
     next: (count) => this.likesCount = count
   });
@@ -88,4 +87,6 @@ reload() {
   this.loadComments();
   this.loadLikeState();
 }
+
+
 }

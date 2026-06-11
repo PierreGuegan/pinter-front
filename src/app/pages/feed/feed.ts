@@ -46,12 +46,8 @@ selectedImage: any = null;
 isModalOpen = false;
 
 openModal(img: any) {
-  this.selectedImage = null;
-
-  setTimeout(() => {
-    this.selectedImage = img;
-    this.isModalOpen = true;
-  });
+  this.selectedImage = img;
+  this.isModalOpen = true;
 }
 
 closeModal() {
