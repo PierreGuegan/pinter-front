@@ -36,15 +36,29 @@ export class ImageModalComponent implements OnChanges{
   loadLikes() {
   if (!this.image?.id) return;
 
+  console.log("LOAD LIKES FOR", this.image.id);
+
   this.imageService.getLikeCount(this.image.id).subscribe({
-    next: (count) => this.likesCount = count
+    next: (count) => {
+      console.log("LIKE COUNT RECEIVED =", count);
+      this.likesCount = count;
+    }
   });
 }
 
 loadLikeState() {
+  if (!this.image?.id) return;
+
+  console.log("LOAD LIKE STATE FOR", this.image.id);
+
   this.imageService.isLikedByMe(this.image.id).subscribe({
-    next: (res: boolean) => {
+    next: (res) => {
+      console.log("IS LIKED RECEIVED =", res);
+
       this.isLiked = res;
+    },
+    error: (err) => {
+      console.error("IS LIKED ERROR =", err);
     }
   });
 }
@@ -89,7 +103,13 @@ addComment() {
 }
 
 reload() {
-  if (!this.image?.id) return;
+  console.log("RELOAD CALLED");
+  console.log("IMAGE =", this.image);
+
+  if (!this.image?.id) {
+    console.log("NO IMAGE ID");
+    return;
+  }
 
   this.loadLikes();
   this.loadComments();
