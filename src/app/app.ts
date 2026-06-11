@@ -14,8 +14,11 @@ export class App {
   constructor(private auth: AuthService, private router: Router) {}
 
   goProfile() {
-    console.log("CLICK PROFILE");
-  this.router.navigate(['/profile']);
+  if (this.auth.isLoggedIn()) {
+    this.router.navigate(['/profile']);
+  } else {
+    this.router.navigate(['/login']);
+  }
 }
 
 

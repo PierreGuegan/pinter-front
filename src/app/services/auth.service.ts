@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -8,7 +8,10 @@ export class AuthService {
 
   private baseUrl = `${environment.apiUrl}/api/auth`;
 
-  constructor(private http: HttpClient) {}
+  private authState = new BehaviorSubject<boolean>(this.hasToken());
+  authState$ = this.authState.asObservable();
+
+  constructor(private http: HttpClient) { }
 
   login(data: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, data);
@@ -20,33 +23,39 @@ export class AuthService {
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
+    this.authState.next(true);
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
+  private hasToken(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
   isLoggedIn(): boolean {
-  console.log("TOKEN CHECK =", localStorage.getItem('token'));
-  return !!localStorage.getItem('token');
-}
+    console.log("TOKEN CHECK =", localStorage.getItem('token'));
+    return !!localStorage.getItem('token');
+  }
 
   logout() {
     localStorage.removeItem('token');
+    this.authState.next(false);
   }
 
   getMe() {
-  const token = this.getToken();
+    const token = this.getToken();
 
-  return this.http.get(`${this.baseUrl}/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-}
+    return this.http.get(`${this.baseUrl}/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 
-canAccessProfile(): boolean {
-  const token = localStorage.getItem('token');
-  return token !== null && token.length > 10;
-}
+  /*canAccessProfile(): boolean {
+    const token = localStorage.getItem('token');
+    return token !== null && token.length > 10;
+  }*/
 }
