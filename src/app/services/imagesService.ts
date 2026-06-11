@@ -98,7 +98,7 @@ isLikedByMe(imageId: string) {
   const token = localStorage.getItem('token');
 
   return this.http.get<boolean>(
-    `${this.apiUrl}/likes/${imageId}/me`,
+    `${environment.apiUrl}/likes/${imageId}/me`,
     {
       headers: {
         Authorization: `Bearer ${token}`
