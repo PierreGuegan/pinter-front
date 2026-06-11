@@ -64,6 +64,7 @@ import { CommonModule } from '@angular/common';
     <input
   [(ngModel)]="originalArtist"
   placeholder="Original artist"
+  class="input"
 />
 
     <!-- BUTTON -->

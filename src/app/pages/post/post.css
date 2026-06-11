@@ -141,3 +141,32 @@
   color: #888;
   text-align: center;
 }
+
+.post-button {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: white;
+
+  border: none;
+  border-radius: 14px;
+
+  height: 46px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+}
+
+.post-button:hover {
+  opacity: 0.95;
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
+  transform: translateY(-1px);
+}
+
+.post-button:active {
+  transform: translateY(0px) scale(0.98);
+}

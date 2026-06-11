@@ -12,25 +12,49 @@ import { FormsModule } from '@angular/forms';
 })
 export class ImageModalComponent {
 
+  // =========================
+  // 📌 INPUT IMAGE (IMPORTANT FIX)
+  // =========================
   private _image: any;
 
   @Input() set image(value: any) {
     this._image = value;
 
-    if (value?.id) {
-      setTimeout(() => {
-        this.reload();
-      });
-    }
+    // 🔥 sécurité : si pas d'image, on stop
+    if (!value?.id) return;
+
+    // 🔥 reset état AVANT reload
+    this.resetState();
+
+    // 🔥 IMPORTANT : attend stabilisation Angular
+    Promise.resolve().then(() => {
+      this.reload();
+    });
   }
 
   get image() {
     return this._image;
   }
 
+  // =========================
+  // OUTPUTS
+  // =========================
   @Output() close = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();
 
+  // =========================
+  // STATE UI
+  // =========================
+  likesCount: number = 0;
+  comments: any[] = [];
+  newComment: string = '';
+  isLiked: boolean = false;
+
+  constructor(private imageService: ImageService) {}
+
+  // =========================
+  // ACTIONS UI
+  // =========================
   closeModal() {
     this.close.emit();
   }
@@ -39,21 +63,14 @@ export class ImageModalComponent {
     this.delete.emit(this.image.id);
   }
 
-  likesCount: number = 0;
-  comments: any[] = [];
-  newComment: string = '';
-  isLiked: boolean = false;
-
-  constructor(private imageService: ImageService) {}
-
+  // =========================
+  // API CALLS
+  // =========================
   loadLikes() {
     if (!this.image?.id) return;
 
-    console.log("LOAD LIKES FOR", this.image.id);
-
     this.imageService.getLikeCount(this.image.id).subscribe({
       next: (count) => {
-        console.log("LIKE COUNT RECEIVED =", count);
         this.likesCount = count;
       }
     });
@@ -62,15 +79,13 @@ export class ImageModalComponent {
   loadLikeState() {
     if (!this.image?.id) return;
 
-    console.log("LOAD LIKE STATE FOR", this.image.id);
-
     this.imageService.isLikedByMe(this.image.id).subscribe({
       next: (res) => {
-        console.log("IS LIKED RECEIVED =", res);
         this.isLiked = res;
       },
       error: (err) => {
-        console.error("IS LIKED ERROR =", err);
+        console.error("LIKE STATE ERROR =", err);
+        this.isLiked = false;
       }
     });
   }
@@ -78,7 +93,6 @@ export class ImageModalComponent {
   toggleLike() {
     const previous = this.isLiked;
 
-    // optimistic UI
     this.isLiked = !previous;
     this.likesCount += previous ? -1 : 1;
 
@@ -88,7 +102,6 @@ export class ImageModalComponent {
         this.loadLikeState();
       },
       error: () => {
-        // rollback si erreur
         this.isLiked = previous;
         this.loadLikes();
       }
@@ -99,7 +112,9 @@ export class ImageModalComponent {
     if (!this.image?.id) return;
 
     this.imageService.getComments(this.image.id).subscribe({
-      next: (data) => this.comments = data
+      next: (data) => {
+        this.comments = data;
+      }
     });
   }
 
@@ -114,20 +129,20 @@ export class ImageModalComponent {
     });
   }
 
+  // =========================
+  // CORE FIXED RELOAD
+  // =========================
   reload() {
-    console.log("RELOAD CALLED");
-    console.log("IMAGE =", this.image);
-
-    if (!this.image?.id) {
-      console.log("NO IMAGE ID");
-      return;
-    }
+    if (!this.image?.id) return;
 
     this.loadLikes();
     this.loadComments();
     this.loadLikeState();
   }
 
+  // =========================
+  // RESET STATE (IMPORTANT)
+  // =========================
   resetState() {
     this.likesCount = 0;
     this.comments = [];
