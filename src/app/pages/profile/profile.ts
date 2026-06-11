@@ -61,7 +61,7 @@ export class ProfileComponent {
 
   constructor(private auth: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  /*ngOnInit() {
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -75,6 +75,15 @@ export class ProfileComponent {
         error: () => this.router.navigate(['/login'])
       });
     }, 0);
+  }*/
+
+  ngOnInit() {
+    this.auth.getMe().subscribe({
+      next: (res) => this.user = res,
+      error: () => {
+        this.user = null;
+      }
+    });
   }
 
   isLoggedIn(): boolean {

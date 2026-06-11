@@ -11,15 +11,13 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.css'
 })
 export class App {
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
   goProfile() {
-  if (this.auth.isLoggedIn()) {
-    this.router.navigate(['/profile']);
-  } else {
-    this.router.navigate(['/login']);
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['/profile']);
+    }
   }
-}
 
 
 }
