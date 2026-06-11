@@ -11,7 +11,7 @@ export class AuthService {
   private authState = new BehaviorSubject<boolean>(this.hasToken());
   authState$ = this.authState.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login(data: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, data);
@@ -30,18 +30,18 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  private hasToken(): boolean {
-    return !!localStorage.getItem('token');
-  }
-
-  isLoggedIn(): boolean {
-    console.log("TOKEN CHECK =", localStorage.getItem('token'));
-    return !!localStorage.getItem('token');
-  }
-
   logout() {
     localStorage.removeItem('token');
     this.authState.next(false);
+  }
+
+  isLoggedIn(): boolean {
+    return this.hasToken();
+  }
+
+  private hasToken(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token && token.length > 10;
   }
 
   getMe() {
@@ -53,9 +53,4 @@ export class AuthService {
       }
     });
   }
-
-  /*canAccessProfile(): boolean {
-    const token = localStorage.getItem('token');
-    return token !== null && token.length > 10;
-  }*/
 }

@@ -14,9 +14,9 @@ export class App {
   constructor(private auth: AuthService, private router: Router) { }
 
   goProfile() {
-    if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/profile']);
-    }
+    const token = this.auth.getToken();
+
+    this.router.navigate([token ? '/profile' : '/login']);
   }
 
 

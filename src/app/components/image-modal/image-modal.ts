@@ -98,8 +98,9 @@ reload() {
 
 ngOnChanges(changes: SimpleChanges) {
   if (changes['image'] && this.image?.id) {
-    this.resetState();   // 👈 ajout
-    this.reload();
+    setTimeout(() => {
+      this.reload();
+    });
   }
 }
 
