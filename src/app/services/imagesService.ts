@@ -80,9 +80,24 @@ getComments(imageId: string) {
 }
 
 addComment(imageId: string, content: string) {
+
+  const token = localStorage.getItem('token');
+
+  const body = {
+    content: content
+  };
+
+  console.log("COMMENT BODY SENT =", body);
+
   return this.http.post(
     `${environment.apiUrl}/comments/${imageId}`,
-    { content }
+    body,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    }
   );
 }
 
