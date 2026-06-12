@@ -81,7 +81,7 @@ getComments(imageId: string) {
 
 addComment(imageId: string, content: string) {
   return this.http.post(
-    `/comments/${imageId}`,
+    `${environment.apiUrl}/comments/${imageId}`,
     { content }
   );
 }
