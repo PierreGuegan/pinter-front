@@ -113,4 +113,17 @@ isLikedByMe(imageId: string) {
     }
   );
 }
+
+deleteComment(commentId: string) {
+  const token = localStorage.getItem('token');
+
+  return this.http.delete(
+    `${environment.apiUrl}/comments/${commentId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+}
 }

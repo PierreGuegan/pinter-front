@@ -41,6 +41,7 @@ export class ImageModalComponent {
   // =========================
   @Output() close = new EventEmitter<void>();
   @Output() delete = new EventEmitter<string>();
+  @Output() deleteCommentEvent = new EventEmitter<string>();
 
   // =========================
   // STATE UI
@@ -50,7 +51,7 @@ export class ImageModalComponent {
   newComment: string = '';
   isLiked: boolean = false;
 
-  constructor(private imageService: ImageService) {}
+  constructor(private imageService: ImageService) { }
 
   // =========================
   // ACTIONS UI
@@ -129,6 +130,14 @@ export class ImageModalComponent {
     });
   }
 
+  currentUserId: string = '';
+
+
+  @Output() deleteComment = new EventEmitter<string>();
+
+  deleteCommentById(commentId: string) {
+    this.deleteComment.emit(commentId);
+  }
   // =========================
   // CORE FIXED RELOAD
   // =========================
@@ -148,4 +157,5 @@ export class ImageModalComponent {
     this.comments = [];
     this.isLiked = false;
   }
+
 }

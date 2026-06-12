@@ -81,7 +81,23 @@ onDeleteImage(id: string) {
       console.error("Delete failed", err);
     }
   });
-
 }
 
+onDeleteComment(commentId: string) {
+
+  this.imageService.deleteComment(commentId).subscribe({
+    next: () => {
+
+      // 🔥 update local modal image
+      if (this.selectedImage?.comments) {
+        this.selectedImage.comments =
+          this.selectedImage.comments.filter((c: any) => c.id !== commentId);
+      }
+
+    },
+    error: (err) => {
+      console.error("Delete comment failed", err);
+    }
+  });
+}
 }
