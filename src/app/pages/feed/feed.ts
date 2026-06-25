@@ -30,14 +30,13 @@ export class FeedComponent implements OnInit {
 
         console.log("IMAGES =", this.images);
 
-        this.cd.detectChanges(); // 🔥 force Angular refresh
+        this.cd.detectChanges(); 
       },
       error: (err) => {
         console.error("ERROR =", err);
       }
     });
   }
-
   onError(img: any) {
   console.warn("IMAGE FAILED:", img);
 }
@@ -70,7 +69,6 @@ onDeleteImage(id: string) {
 
   this.imageService.deleteImage(id).subscribe({
     next: () => {
-
       // retire du feed
       this.images = this.images.filter(img => img.id !== id);
 
@@ -88,7 +86,7 @@ onDeleteComment(commentId: string) {
   this.imageService.deleteComment(commentId).subscribe({
     next: () => {
 
-      // 🔥 update local modal image
+      // update local modal image
       if (this.selectedImage?.comments) {
         this.selectedImage.comments =
           this.selectedImage.comments.filter((c: any) => c.id !== commentId);
