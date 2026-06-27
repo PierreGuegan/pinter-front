@@ -6,6 +6,10 @@
 
 </div>
 
+<div *ngIf="successMessage" class="success">
+  {{ successMessage }}
+</div>
+
 <div class="grid">
 
   <div class="card" *ngFor="let img of images" (click)="openModal(img)">

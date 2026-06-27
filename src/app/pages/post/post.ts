@@ -113,8 +113,21 @@ export class PostComponent {
   }
 
   upload() {
+
+    this.message = '';
+
     if (!this.file) {
-      this.message = "No file selected";
+      this.message = "Image required";
+      return;
+    }
+
+    if (!this.title || this.title.trim() === '') {
+      this.message = "Title is required";
+      return;
+    }
+
+    if (!this.originalArtist || this.originalArtist.trim() === '') {
+      this.message = "Original artist is required";
       return;
     }
 
@@ -125,17 +138,19 @@ export class PostComponent {
       this.originalArtist
     ).subscribe({
       next: () => {
-        this.router.navigate(
-          ['/'],
-          {
-            state: {
-              successMessage: 'Image published successfully'
-            }
+        this.router.navigate(['/'], {
+          state: {
+            successMessage: 'Image published successfully'
           }
-        );
+        });
       },
-      error: () => {
-        this.message = "Upload failed";
+      error: (err) => {
+
+        // si backend renvoie message
+        this.message =
+          err?.error?.message ||
+          err?.headers?.get?.('error-message') ||
+          "Upload failed";
       }
     });
   }

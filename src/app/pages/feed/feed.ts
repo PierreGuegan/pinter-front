@@ -28,6 +28,11 @@ export class FeedComponent implements OnInit {
 
     console.log("FEED LOADED");
 
+    const nav = this.router.getCurrentNavigation();
+
+    this.successMessage = nav?.extras?.state?.['successMessage'];
+
+
     const navigation = this.router.getCurrentNavigation();
 
     const message =
