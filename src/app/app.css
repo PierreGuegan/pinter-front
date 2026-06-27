@@ -86,3 +86,50 @@ body {
   background: rgba(196, 181, 253, 0.08);
 }
 
+@media (min-width: 1024px) {
+
+  .navbar {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+
+    width: 220px;
+    height: 100vh;
+
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+
+    border-top: none;
+    border-right: 1px solid #222;
+  }
+
+  .nav-item {
+    flex-direction: row;
+
+    width: 180px;
+
+    justify-content: flex-start;
+
+    gap: 12px;
+
+    padding: 14px 18px;
+
+    font-size: 15px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .content {
+    margin-left: 220px;
+  }
+
+  .grid {
+    padding-bottom: 0;
+  }
+
+}
