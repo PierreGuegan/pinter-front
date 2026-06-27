@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageService } from '../../services/imagesService';
 import { ImageModalComponent } from '../../components/image-modal/image-modal';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -12,15 +13,36 @@ import { ImageModalComponent } from '../../components/image-modal/image-modal';
 })
 export class FeedComponent implements OnInit {
 
+  successMessage = '';
+  showSuccess = false;
+
   images: any[] = [];
 
   constructor(
     private imageService: ImageService,
-    private cd: ChangeDetectorRef
-  ) {}
+    private cd: ChangeDetectorRef,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+
     console.log("FEED LOADED");
+
+    const navigation = this.router.getCurrentNavigation();
+
+    const message =
+      navigation?.extras?.state?.['successMessage'];
+
+    if (message) {
+
+      this.successMessage = message;
+      this.showSuccess = true;
+
+      setTimeout(() => {
+        this.showSuccess = false;
+      }, 3000);
+
+    }
 
     this.imageService.getImages().subscribe({
       next: (data) => {
@@ -30,7 +52,7 @@ export class FeedComponent implements OnInit {
 
         console.log("IMAGES =", this.images);
 
-        this.cd.detectChanges(); 
+        this.cd.detectChanges();
       },
       error: (err) => {
         console.error("ERROR =", err);
@@ -38,64 +60,64 @@ export class FeedComponent implements OnInit {
     });
   }
   onError(img: any) {
-  console.warn("IMAGE FAILED:", img);
-}
+    console.warn("IMAGE FAILED:", img);
+  }
 
-selectedImage: any = null;
-isModalOpen = false;
+  selectedImage: any = null;
+  isModalOpen = false;
 
-openModal(img: any) {
-  this.selectedImage = img;
-  this.isModalOpen = true;
-}
+  openModal(img: any) {
+    this.selectedImage = img;
+    this.isModalOpen = true;
+  }
 
-closeModal() {
-  this.isModalOpen = false;
-  this.selectedImage = null;
-}
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedImage = null;
+  }
 
-deleteImage(id: string) {
-  this.imageService.deleteImage(id).subscribe({
-    next: () => {
-      this.images = this.images.filter(i => i.id !== id);
-    },
-    error: (err) => {
-      console.error("Delete failed", err);
-    }
-  });
-}
-
-onDeleteImage(id: string) {
-
-  this.imageService.deleteImage(id).subscribe({
-    next: () => {
-      // retire du feed
-      this.images = this.images.filter(img => img.id !== id);
-
-      // ferme modal
-      this.closeModal();
-    },
-    error: (err) => {
-      console.error("Delete failed", err);
-    }
-  });
-}
-
-onDeleteComment(commentId: string) {
-
-  this.imageService.deleteComment(commentId).subscribe({
-    next: () => {
-
-      // update local modal image
-      if (this.selectedImage?.comments) {
-        this.selectedImage.comments =
-          this.selectedImage.comments.filter((c: any) => c.id !== commentId);
+  deleteImage(id: string) {
+    this.imageService.deleteImage(id).subscribe({
+      next: () => {
+        this.images = this.images.filter(i => i.id !== id);
+      },
+      error: (err) => {
+        console.error("Delete failed", err);
       }
+    });
+  }
 
-    },
-    error: (err) => {
-      console.error("Delete comment failed", err);
-    }
-  });
-}
+  onDeleteImage(id: string) {
+
+    this.imageService.deleteImage(id).subscribe({
+      next: () => {
+        // retire du feed
+        this.images = this.images.filter(img => img.id !== id);
+
+        // ferme modal
+        this.closeModal();
+      },
+      error: (err) => {
+        console.error("Delete failed", err);
+      }
+    });
+  }
+
+  onDeleteComment(commentId: string) {
+
+    this.imageService.deleteComment(commentId).subscribe({
+      next: () => {
+
+        // update local modal image
+        if (this.selectedImage?.comments) {
+          this.selectedImage.comments =
+            this.selectedImage.comments.filter((c: any) => c.id !== commentId);
+        }
+
+      },
+      error: (err) => {
+        console.error("Delete comment failed", err);
+      }
+    });
+  }
 }

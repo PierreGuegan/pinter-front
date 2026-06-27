@@ -1,5 +1,11 @@
 <!-- DEBUG 
 <pre>{{ images | json }}</pre> -->
+<div class="success-banner" *ngIf="showSuccess">
+
+  {{ successMessage }}
+
+</div>
+
 <div class="grid">
 
   <div class="card" *ngFor="let img of images" (click)="openModal(img)">
@@ -19,10 +25,6 @@
 
 </div>
 
-<app-image-modal
-  *ngIf="isModalOpen"
-  [image]="selectedImage"
-  (close)="closeModal()"
-  (delete)="onDeleteImage($event)"
+<app-image-modal *ngIf="isModalOpen" [image]="selectedImage" (close)="closeModal()" (delete)="onDeleteImage($event)"
   (deleteComment)="onDeleteComment($event)">
 </app-image-modal>

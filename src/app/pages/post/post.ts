@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ImageService } from '../../services/imagesService';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -89,7 +90,10 @@ export class PostComponent {
   message = '';
   originalArtist = '';
 
-  constructor(private imageService: ImageService) { }
+  constructor(
+    private imageService: ImageService,
+    private router: Router
+  ) { }
 
   previewUrl: string | ArrayBuffer | null = null;
 
@@ -121,7 +125,14 @@ export class PostComponent {
       this.originalArtist
     ).subscribe({
       next: () => {
-        this.message = "Upload success";
+        this.router.navigate(
+          ['/'],
+          {
+            state: {
+              successMessage: 'Image published successfully'
+            }
+          }
+        );
       },
       error: () => {
         this.message = "Upload failed";
